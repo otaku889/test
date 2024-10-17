@@ -6,15 +6,21 @@ import android.widget.SearchView
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.compose.ui.text.toLowerCase
-
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvmcountry.databinding.ActivityMainBinding
+import com.example.mvvmcountry.model.CountryData
 import com.example.mvvmcountry.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+
+    private lateinit var myArrayListMain: ArrayList<String>
 
     private val viewModel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
@@ -27,6 +33,8 @@ class MainActivity : ComponentActivity() {
             // Update UI with data
 
             binding.apply {
+
+                Recycler.layoutManager = LinearLayoutManager(this@MainActivity)
                 Searcher.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
                     override fun onQueryTextSubmit(p0: String): Boolean {
@@ -41,14 +49,14 @@ class MainActivity : ComponentActivity() {
                             Log.i("TAG", "Last: $commonName")
 
                             if (p0.lowercase() == commonName.lowercase()) {
-                                textView.text = commonName
+                                //textView.text = commonName
 
                                 //Get Official Name
                                 viewModel.countryOfficial.observe(
                                     this@MainActivity,
                                     Observer { officialName ->
                                         officialName.forEach {
-                                            textView2.text =
+                                            //textView2.text =
                                                 officialName[commonNames.indexOf(commonName)]
                                         }
                                     })
@@ -62,7 +70,7 @@ class MainActivity : ComponentActivity() {
                         return true
                     }
                 })
-
+                //Recycler.adapter = CountryAdapter(viewModel,this@MainActivity,this@MainActivity,myArrayListMain)
             }
         })
         //viewModel.data.observe(this, Observer { data ->

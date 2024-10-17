@@ -7,4 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="patone">#AA0A29</color>
+    <color name="khaki">#DCBDAA</color>
+    <color name="light_khaki">#FFDDC9</color>
+    <color name="gray">#E4E2E3</color>
+    <color name="darker_gray">#BCC5C8</color>
+    <color name="Water_green">#5BA098</color>
+    <color name="blue_green">#479697</color>
+    <color name="peach">#E39982</color>
 </resources>

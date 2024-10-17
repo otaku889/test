@@ -45,7 +45,7 @@ class MainViewModel @Inject constructor(private val repository: ImpCountryRepo) 
                         countryDetailsList.add(countryDetails)
                     }
                     // Map the list of CountryData to a list of common names and post it
-                    //_data.postValue(countryDetailsList.map { it.names})
+                    _data.postValue(countryDetailsList.map { it.names})
                     _official.postValue(countryDetailsList.map { it.officials})
                 } ?: run {
                     Log.e("TAG", "Response body is null")
