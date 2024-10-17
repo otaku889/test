@@ -35,7 +35,6 @@ class MainViewModel @Inject constructor(private val repository: ImpCountryRepo) 
             Log.i("TAG", response.toString())
 
             if (response.isSuccessful) {
-
                 response.body()?.let { dataList ->
                     for (i in dataList.indices) {
                         val dataModel = dataList[i]
@@ -43,11 +42,10 @@ class MainViewModel @Inject constructor(private val repository: ImpCountryRepo) 
                             dataModel.name.common,
                             dataModel.name.official
                         )
-
                         countryDetailsList.add(countryDetails)
                     }
                     // Map the list of CountryData to a list of common names and post it
-                    _data.postValue(countryDetailsList.map { it.names})
+                    //_data.postValue(countryDetailsList.map { it.names})
                     _official.postValue(countryDetailsList.map { it.officials})
                 } ?: run {
                     Log.e("TAG", "Response body is null")
@@ -57,7 +55,6 @@ class MainViewModel @Inject constructor(private val repository: ImpCountryRepo) 
             }
         }
     }
-
     // Function to set search query
     fun setSearchQuery(data: String) {
         searchQuery = data
