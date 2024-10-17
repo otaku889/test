@@ -53,8 +53,8 @@ data class Currency(
 //Getting data for Recycler View
 data class CountryData(
     val names: String,
-    val officials: String
-    //val flag: String,
+    val officials: String,
+    val flag: String
     //val cca2: String,
     //val timeZone: String,
     //val population: String,
