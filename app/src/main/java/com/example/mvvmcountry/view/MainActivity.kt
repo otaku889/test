@@ -17,17 +17,17 @@ import java.util.Locale
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
-    private lateinit var  binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         viewModel.countryCommonName.observe(this, Observer { commonNames ->
             // Update UI with data
 
-            binding.apply{
-                Searcher.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            binding.apply {
+                Searcher.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
                     override fun onQueryTextSubmit(p0: String): Boolean {
 
@@ -37,18 +37,21 @@ class MainActivity : ComponentActivity() {
                     override fun onQueryTextChange(p0: String): Boolean {
                         viewModel.setSearchQuery(p0)
                         //Get Common Name for Searching
-                        commonNames.forEach{ commonName ->
-                            Log.i("TAG","Last: $commonName")
+                        commonNames.forEach { commonName ->
+                            Log.i("TAG", "Last: $commonName")
 
-                            if(p0.lowercase()== commonName.lowercase()){
-                                textView.text= commonName
+                            if (p0.lowercase() == commonName.lowercase()) {
+                                textView.text = commonName
 
                                 //Get Official Name
-                                viewModel.countryOfficial.observe(this@MainActivity, Observer { officialName->
-                                    officialName.forEach{
-                                    textView2.text= officialName[commonNames.indexOf(commonName)]
-                                    }
-                                })
+                                viewModel.countryOfficial.observe(
+                                    this@MainActivity,
+                                    Observer { officialName ->
+                                        officialName.forEach {
+                                            textView2.text =
+                                                officialName[commonNames.indexOf(commonName)]
+                                        }
+                                    })
 
 
                             }
