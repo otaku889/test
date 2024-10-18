@@ -6,24 +6,24 @@ import java.io.Serializable
 data class DataModel(
    @SerializedName("name")
    val name: Name,
-   @SerializedName("flags")
+  @SerializedName("flags")
    val flags: Flags,
-    @SerializedName("region")
-    val region :String,
-    @SerializedName("subregion")
-    val subregion :String,
-    @SerializedName("capital")
-    val capital: List<String>?,
-   @SerializedName("currencies")
-   val currencies: Map<String, Currency>,
-    @SerializedName("cca2")
-    val countryCode : String,
-    @SerializedName("timezones")
-    val countryTimeZone :List<String>,
-    @SerializedName("languages")
-    val language : Map<String, String>?,
-    @SerializedName("population")
-    val population: String
+   @SerializedName("region")
+   val region :String,
+   @SerializedName("subregion")
+   val subregion :String,
+   @SerializedName("capital")
+   val capital: List<String>?,
+  @SerializedName("currencies")
+  val currencies: Map<String, Currency>,
+   @SerializedName("cca2")
+   val countryCode : String,
+   @SerializedName("timezones")
+   val countryTimeZone :List<String>,
+   @SerializedName("languages")
+   val language : Map<String, String>?,
+   @SerializedName("population")
+   val population: String
 )
 
 //CHILD ABUSE
@@ -53,8 +53,8 @@ data class Currency(
 //Getting data for Recycler View
 data class CountryData(
     val names: String,
-    val officials: String,
-    val flag: String
+    val officials: String
+//    val flag: String
     //val cca2: String,
     //val timeZone: String,
     //val population: String,
@@ -66,4 +66,11 @@ data class CountryData(
 
 
 
+)
+
+data class CombinedData(
+    val commonNames: List<String>,
+    val officialNames: List<String>,
+    val flagURLs: List<String>,
+    val capitalName: List<String> // Add more properties as needed
 )

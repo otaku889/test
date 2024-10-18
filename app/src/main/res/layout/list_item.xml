@@ -5,7 +5,7 @@
     android:layout_height="500dp"
     android:padding="16dp"
     android:layout_margin="8dp"
-    android:background="@drawable/container_country"
+    android:background="@drawable/button_backgrounds"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
@@ -76,15 +76,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            >
+            android:clickable="false"
+            android:gravity="end">
+
             <Button
                 android:id="@+id/MoreButton"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
+                android:background="@drawable/button_backgrounds"
+                android:clickable="true"
+                android:contextClickable="true"
+                android:cursorVisible="true"
+                android:defaultFocusHighlightEnabled="true"
                 android:text="More"
-                android:textAllCaps="false"
-                android:background="@null"/>
+                android:enabled="false"
+                android:textAllCaps="false" />
         </LinearLayout>
         <ImageView
         android:id="@+id/flagInside"

@@ -2,8 +2,8 @@ package com.example.mvvmcountry.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.example.mvvmcountry.model.CountryData
-import com.example.mvvmcountry.model.ImpCountryRepo
+import com.example.mvvmcountry.DI.ImpCountryRepo
+import com.example.mvvmcountry.model.CombinedData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -11,31 +11,41 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repository: ImpCountryRepo) : ViewModel() {
 
+    private val _combinedData = MediatorLiveData<CombinedData>()
+
+    //viewModel.combinedData to call
+    val combinedData: LiveData<CombinedData> get() = _combinedData
+    //Common Name
     private val _countryCommonName = MutableLiveData<List<String>>()
-    val countryCommonName: LiveData<List<String>> get() = _countryCommonName
+    private val commonNames = ArrayList<String>()
 
-    private val _countryOfficial = MutableLiveData<List<String>>()
-    val countryOfficial: LiveData<List<String>> get() = _countryOfficial
+    //Official Name
+    private val _officialName = MutableLiveData<List<String>>()
+    private val officialNames = ArrayList<String>()
 
+    //Flag Url
     private val _countryFlag = MutableLiveData<List<String>>()
-    val countryFlag: LiveData<List<String>> get() = _countryFlag
+    private val flagURLs = ArrayList<String>()
 
-    private val _combinedData = MediatorLiveData<Triple<List<String>, List<String>, List<String>>>()
-    val combinedData: LiveData<Triple<List<String>, List<String>, List<String>>> get() = _combinedData
+    //Capital
+    private val _capitalName = MutableLiveData<List<String>>()
+    private val capital = ArrayList<String>()
 
-    private val countryDetailsList = mutableListOf<CountryData>()
 
+    //FOR MY MEDIATORLIST
     init {
         _combinedData.addSource(_countryCommonName) { updateCombinedData() }
-        _combinedData.addSource(_countryOfficial) { updateCombinedData() }
+        _combinedData.addSource(_officialName) { updateCombinedData() }
         _combinedData.addSource(_countryFlag) { updateCombinedData() }
+        _combinedData.addSource(_capitalName) { updateCombinedData() }
     }
 
     private fun updateCombinedData() {
         val commonNames = _countryCommonName.value ?: emptyList()
-        val officialNames = _countryOfficial.value ?: emptyList()
+        val officialNames = _officialName.value ?: emptyList()
         val flagURLs = _countryFlag.value ?: emptyList()
-        _combinedData.value = Triple(commonNames, officialNames, flagURLs)
+        val capitalName = _capitalName.value ?: emptyList()
+        _combinedData.value = CombinedData(commonNames, officialNames, flagURLs, capitalName)
     }
 
     fun fetchData() {
@@ -43,19 +53,20 @@ class MainViewModel @Inject constructor(private val repository: ImpCountryRepo) 
             val response = repository.getData()
             if (response.isSuccessful) {
                 response.body()?.let { dataList ->
-                    countryDetailsList.clear()
                     dataList.forEach { dataModel ->
-                        countryDetailsList.add(
-                            CountryData(
-                                dataModel.name.common,
-                                dataModel.name.official,
-                                dataModel.flags.png
-                            )
-                        )
+                        commonNames.add(dataModel.name.common)
+                        _countryCommonName.value = commonNames
+
+                        officialNames.add(dataModel.name.official)
+                        _officialName.value = officialNames
+
+                        flagURLs.add(dataModel.flags.png)
+                        _countryFlag.value = flagURLs
+
+                        capital.add(dataModel.capital.toString())
+                        _capitalName.value = capital
+
                     }
-                    _countryCommonName.postValue(countryDetailsList.map { it.names })
-                    _countryOfficial.postValue(countryDetailsList.map { it.officials })
-                    _countryFlag.postValue(countryDetailsList.map { it.flag })
                 } ?: Log.e("TAG", "Response body is null")
             } else {
                 Log.e("TAG", "Response is not successful: ${response.errorBody()}")

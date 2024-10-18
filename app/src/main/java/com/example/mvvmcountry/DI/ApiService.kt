@@ -1,5 +1,6 @@
-package com.example.mvvmcountry.model
+package com.example.mvvmcountry.DI
 
+import com.example.mvvmcountry.model.DataModel
 import retrofit2.Response
 import retrofit2.http.GET
 

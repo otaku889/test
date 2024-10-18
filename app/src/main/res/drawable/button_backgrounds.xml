@@ -1,0 +1,11 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <selector>
+            <item android:state_pressed="true" android:drawable="@drawable/pressed_button" />
+            <item android:state_enabled="true" android:drawable="@drawable/container_country" />
+            <item android:state_enabled="false" android:drawable="@drawable/disabled_button"/>
+            <item android:drawable="@color/gray" />
+        </selector>
+    </item>
+</layer-list>

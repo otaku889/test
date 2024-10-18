@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mvvmcountry.R
@@ -14,7 +15,8 @@ import com.example.mvvmcountry.R
 class CountryAdapter(
     private val commonName: List<String>,
     private val officialList: List<String>,
-    private val flagURL: List<String>
+   private val flagURL: List<String>,
+    private val capital: List<String>
 ) : RecyclerView.Adapter<CountryAdapter.ViewHolder>() {
 
     private var expandedPosition = -1
@@ -23,6 +25,7 @@ class CountryAdapter(
         val countryName: TextView = view.findViewById(R.id.CountryName)
         val countryOfficial: TextView = view.findViewById(R.id.countryOfficial)
         val countryFlag: ImageView = view.findViewById(R.id.image)
+        val countryCapital: TextView= view.findViewById(R.id.Capital)
 
         @SuppressLint("NotifyDataSetChanged")
         fun bind(item: String, isExpanded: Boolean) {
@@ -32,6 +35,8 @@ class CountryAdapter(
                 expandedPosition = if (isExpanded) -1 else adapterPosition
                 notifyDataSetChanged()
             }
+
+            //Country Container
 
             //Item List Container Expanded
             val params = itemView.layoutParams
@@ -49,6 +54,7 @@ class CountryAdapter(
             //Expanded
             if(isExpanded) countryFlag.visibility=View.GONE else countryFlag.visibility=View.VISIBLE
 
+
         }
 
     }
@@ -62,13 +68,15 @@ class CountryAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val isExpanded = position == expandedPosition
         //Setter of data for each item in item_list.xml
-        holder.bind(officialList[0], isExpanded)
+        holder.bind(commonName[0], isExpanded)
         holder.countryName.text = commonName[position]
-        //holder.countryOfficial.text = officialList[position]
         holder.countryOfficial.text = officialList[position]
+        //holder.countryOfficial.text = officialList[position]
         Glide.with(holder.itemView.context)
             .load(flagURL[position])
             .into(holder.countryFlag)
+
+        holder.countryCapital.text=capital[position]
 
     }
 

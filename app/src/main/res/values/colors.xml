@@ -11,8 +11,14 @@
     <color name="khaki">#DCBDAA</color>
     <color name="light_khaki">#FFDDC9</color>
     <color name="gray">#E4E2E3</color>
-    <color name="darker_gray">#BCC5C8</color>
+    <color name="dark_gray">#BCC5C8</color>
+    <color name="disabled_color">#BCC5C8</color>
     <color name="Water_green">#5BA098</color>
     <color name="blue_green">#479697</color>
     <color name="peach">#E39982</color>
+    <color name="pressed_color">#E39982</color>
+    <color name="default_color">#000000</color>
+
+
+
 </resources>

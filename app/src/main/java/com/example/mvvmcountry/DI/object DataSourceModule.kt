@@ -1,4 +1,4 @@
-package com.example.mvvmcountry.model
+package com.example.mvvmcountry.DI
 
 import dagger.Module
 import dagger.Provides
